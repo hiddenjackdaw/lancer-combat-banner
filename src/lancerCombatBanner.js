@@ -61,6 +61,28 @@ function LancerCombatBanner() {
 			};
 			ChatMessage.create(chatData)
 		}
+		
+		safeDelete("newRoundBanner");
+		safeDelete("yourTurnImageId");
+		safeDelete("yourTurnBanner");		
+		
+		let bannerDiv = document.createElement("div");
+		bannerDiv.id = "newRoundBanner";
+		bannerDiv.className = "newRoundBanner";
+		bannerDiv.style.height = 150;
+		bannerDiv.innerHTML = `
+		<div class="newRoundTitle">
+		  ${game.i18n.localize('ADA_COMBATBANNER.StartOfRound')} #${roundNumber}
+		</div></div>`;
+
+		bannerContainer.append(bannerDiv);
+		
+		setTimeout(() => {
+			if (!adaCombatBanner.pause) {	
+				let element = document.getElementById("newRoundBanner");
+				element.classList.add("removing");
+			}
+		}, 5000);
 	}
 	
 	function newTurn(combat, combatant) {

@@ -1,0 +1,41 @@
+
+.newRoundBanner{
+  position: absolute;
+  transition: 6s;
+	background-color: var(--ADA_COMBATBANNER_colorTransparent);
+  background-blend-mode: hard-light;
+  block-size: fit-content;
+  border-bottom-style: solid;
+  border-bottom-width: 0px;
+  border-bottom: var(--ADA_TURN_color);
+  color: lightgray;
+  font-family: Orbitron, Consolas, sans-serif;
+  font-size: 5em;
+  font-weight: bold;   
+  margin-bottom: auto; 
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-align: center; 
+  text-overflow: clip;
+  text-shadow: 3px 3px 6px black;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.newRoundBanner.removing{
+  opacity: 1;
+  animation-name: newRoundOut;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes newRoundOut{
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
+}
