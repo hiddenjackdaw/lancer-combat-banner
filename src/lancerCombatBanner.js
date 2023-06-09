@@ -80,7 +80,9 @@ function LancerCombatBanner() {
 		setTimeout(() => {
 			if (!adaCombatBanner.pause) {	
 				let element = document.getElementById("newRoundBanner");
-				element.classList.add("removing");
+				if(element){
+					element.classList.add("removing");
+				}
 			}
 		}, 5000);
 	}
@@ -131,15 +133,20 @@ function LancerCombatBanner() {
 		<div id="yourTurnBannerBackground" class="yourTurnBannerBackground" height="150"></div>`;
 
 		var cssDataRoot = document.querySelector(':root');
-		if (combat?.combatant?.hasPlayerOwner && combat?.combatant?.players[0].active) {
-			const ytPlayerColor = combat?.combatant?.players[0]["color"];
-			cssDataRoot.style.setProperty('--yourTurnPlayerColor', ytPlayerColor);
-			cssDataRoot.style.setProperty('--yourTurnPlayerColorTransparent', ytPlayerColor + "80");
+		if (combatant?.hasPlayerOwner && combatant?.players[0].active) {
+			const ytPlayerColor = combatant?.players[0]["color"];
+			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_color', ytPlayerColor);
+			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_colorTransparent', ytPlayerColor + "30");
 		} else {
-			cssDataRoot.style.setProperty('--yourTurnPlayerColor', gmColor);
-			cssDataRoot.style.setProperty('--yourTurnPlayerColorTransparent', gmColor + "80");
+			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_color', gmColor);
+			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_colorTransparent', gmColor + "30");
 		}
-
+		if( game.settings.get( "LancerCombatBanner", "forceDefaultColor"  ) && /^#([0-9A-F]{3}){1,2}$/i.test( game.settings.get( "LancerCombatBanner", "defaultColor"  ) ) ){
+			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_color', game.settings.get( "LancerCombatBanner", "defaultColor"  ));
+			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_colorTransparent', game.settings.get( "LancerCombatBanner", "defaultColor"  ) + "30");
+			
+		}
+		
 		bannerContainer.append(currentImgHTML)
 		bannerContainer.append(bannerDiv);
 
