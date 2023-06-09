@@ -1,5 +1,6 @@
 import {buildSettings} from "./lcbSettings.js";
 import {getMechClass, getCallsign} from "./lcbTools.js";
+import {setColors} from "./lcbColorSet.js"
 
 export let adaCombatBanner = new LancerCombatBanner();
 adaCombatBanner.init();
@@ -50,6 +51,7 @@ function LancerCombatBanner() {
 	}
 	
 	function newRound(roundNumber) {
+		setColors();
 		console.log("new round");
 		if (game.settings.get("LancerCombatBanner", "announceRound")) {
 			let chatData = {
@@ -88,9 +90,10 @@ function LancerCombatBanner() {
 	}
 	
 	function newTurn(combat, combatant) {
+		setColors( combatant );
 		
-		let callsign = getCallsign(combatant.actor);
-		let mechClass = getMechClass(combatant.actor);
+		let callsign = getCallsign( combatant.actor );
+		let mechClass = getMechClass( combatant.actor );
 		if (callsign == mechClass) {
 			mechClass = "";
 		}
@@ -131,21 +134,6 @@ function LancerCombatBanner() {
 		  「${mechClass}」</span>
 		</div>
 		<div id="yourTurnBannerBackground" class="yourTurnBannerBackground" height="150"></div>`;
-
-		var cssDataRoot = document.querySelector(':root');
-		if (combatant?.hasPlayerOwner && combatant?.players[0].active) {
-			const ytPlayerColor = combatant?.players[0]["color"];
-			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_color', ytPlayerColor);
-			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_colorTransparent', ytPlayerColor + "30");
-		} else {
-			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_color', gmColor);
-			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_colorTransparent', gmColor + "30");
-		}
-		if( game.settings.get( "LancerCombatBanner", "forceDefaultColor"  ) && /^#([0-9A-F]{3}){1,2}$/i.test( game.settings.get( "LancerCombatBanner", "defaultColor"  ) ) ){
-			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_color', game.settings.get( "LancerCombatBanner", "defaultColor"  ));
-			cssDataRoot.style.setProperty('--ADA_COMBATBANNER_colorTransparent', game.settings.get( "LancerCombatBanner", "defaultColor"  ) + "30");
-			
-		}
 		
 		bannerContainer.append(currentImgHTML)
 		bannerContainer.append(bannerDiv);
