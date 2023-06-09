@@ -9,4 +9,10 @@
 	"ADA_COMBATBANNER.Settings.announceTurn.Hint": "Create a chat message for each combatant's turn.",
 	"ADA_COMBATBANNER.Settings.announceRound.Name": "Announce Rounds",
 	"ADA_COMBATBANNER.Settings.announceRound.Hint": "Create a chat message at the start of each round.",
+	"ADA_COMBATBANNER.Settings.defaultColor.Name": "Default Color",
+	"ADA_COMBATBANNER.Settings.defaultColor.Hint": "Color to use if one cannot be found from the user, or if Force Default Color is on. Hexadecimal only.",
+	"ADA_COMBATBANNER.Settings.forceDefaultColor.Name": "Force Default Color",
+	"ADA_COMBATBANNER.Settings.forceDefaultColor.Hint": "Use the default color instead of the User's set color.",
+	"ADA_COMBATBANNER.Settings.colorRules.Name": "Banner Color Mode",
+	"ADA_COMBATBANNER.Settings.colorRules.Hint": "'User Colors' will pull from the foundry user's associated color for any tookens owned by that user, including the GM. \n<br>'Default Color Only' will use the default color in the settings for all banners. \n'Disposition Colors' will use the colors found in the setting here for friendly, hostile, and neutral actors."
 }

@@ -111,7 +111,7 @@ function LancerCombatBanner() {
 		theImage = combatant.actor.img;
 
 		let currentImgHTML = document.createElement("img");
-		currentImgHTML.id = yourTurnImageId;
+		currentImgHTML.id = "yourTurnImageId";
 		currentImgHTML.className = "yourTurnImg";
 		currentImgHTML.src = theImage;
 		currentImgHTML.classList.add("adding");
