@@ -1,14 +1,14 @@
 import {buildSettings} from "./lcbSettings.js";
 import {getMechClass, getCallsign} from "./lcbTools.js";
 
-export let adaCombatBanner = new AdaCombatBanner();
+export let adaCombatBanner = new LancerCombatBanner();
 adaCombatBanner.init();
 
-function AdaCombatBanner() {
+function LancerCombatBanner() {
 
-	pause = true;
+	let debugPause = true;
 	let gmColor;
-	let myTimer;
+	let turnBannerTimer;
 	let theImage;
 	let bannerContainer; 
 	
@@ -35,7 +35,6 @@ function AdaCombatBanner() {
 	}
 
 	function onUpdateCombat(combat, update, options, userId) {
-
 		if (!combat.started) {
 			return;
 		}
@@ -45,7 +44,6 @@ function AdaCombatBanner() {
 			}
 			return;
 		}
-
 		if (typeof update["turn"] === "number" && combat?.combatant) {
 			newTurn(combat, combat.combatant);
 		}
@@ -53,7 +51,7 @@ function AdaCombatBanner() {
 	
 	function newRound(roundNumber) {
 		console.log("new round");
-		if (game.settings.get("AdaCombatBanner", "announceRound")) {
+		if (game.settings.get("LancerCombatBanner", "announceRound")) {
 			let chatData = {
 				speaker: {
 					alias: game.i18n.localize('ADA_COMBATBANNER.NextRound')
@@ -67,14 +65,13 @@ function AdaCombatBanner() {
 	
 	function newTurn(combat, combatant) {
 		
-		
 		let callsign = getCallsign(combatant.actor);
 		let mechClass = getMechClass(combatant.actor);
 		if (callsign == mechClass) {
 			mechClass = "";
 		}
 		
-		if (game.settings.get("AdaCombatBanner", "announceTurn")) {
+		if (game.settings.get("LancerCombatBanner", "announceTurn")) {
 			let chatData = {
 				speaker: {
 					alias: game.i18n.localize('ADA_COMBATBANNER.NextTurn')
@@ -85,18 +82,14 @@ function AdaCombatBanner() {
 			ChatMessage.create(chatData);
 		}
 		
-		const firstGm = game.users.find((u) => u.isGM && u.active);
-		gmColor = firstGm["color"];
-		
+		safeDelete("newRoundBanner");
+		safeDelete("yourTurnImageId");
+		safeDelete("yourTurnBanner");		
 
 		theImage = combatant.actor.img;
 
-		safeDelete(currentImgID);
-		safeDelete("yourTurnBanner");
-
-
 		let currentImgHTML = document.createElement("img");
-		currentImgHTML.id = currentImgID;
+		currentImgHTML.id = yourTurnImageId;
 		currentImgHTML.className = "yourTurnImg";
 		currentImgHTML.src = theImage;
 		currentImgHTML.classList.add("adding");
@@ -116,8 +109,8 @@ function AdaCombatBanner() {
 		<div id="yourTurnBannerBackground" class="yourTurnBannerBackground" height="150"></div>`;
 
 		var cssDataRoot = document.querySelector(':root');
-		if (combat ? .combatant ? .hasPlayerOwner && combat ? .combatant ? .players[0].active) {
-			const ytPlayerColor = combat ? .combatant ? .players[0]["color"];
+		if (combat?.combatant?.hasPlayerOwner && combat?.combatant?.players[0].active) {
+			const ytPlayerColor = combat?.combatant?.players[0]["color"];
 			cssDataRoot.style.setProperty('--yourTurnPlayerColor', ytPlayerColor);
 			cssDataRoot.style.setProperty('--yourTurnPlayerColorTransparent', ytPlayerColor + "80");
 		} else {
@@ -128,9 +121,9 @@ function AdaCombatBanner() {
 		bannerContainer.append(currentImgHTML)
 		bannerContainer.append(bannerDiv);
 
-		clearInterval(this ? .myTimer);
-		myTimer = setInterval(() => {
-			if (!pause) {
+		clearInterval(this?.turnBannerTimer);
+		turnBannerTimer = setInterval(() => {
+			if (!debugPause) {
 				unloadImage();
 			}
 		}, 5000);
@@ -139,15 +132,21 @@ function AdaCombatBanner() {
 
 
 	function unloadImage() {
-		clearInterval(myTimer);
+		clearInterval(turnBannerTimer);
 		var element = document.getElementById("yourTurnBannerBackground");
-		element.classList.add("removing");
+		if(element){
+			element.classList.add("removing");
+		}
 
 		element = document.getElementById("yourTurnBanner");
-		element.classList.add("removing");
+		if(element){
+			element.classList.add("removing");
+		}
 
-		element = document.getElementById(currentImgID);
-		element.classList.add("removing");
+		element = document.getElementById("yourTurnImageId");
+		if(element){
+			element.classList.add("removing");
+		}
 	}
 
 	function safeDelete(elementID) {
