@@ -1,15 +1,13 @@
 # What is this? 
 
-![Example](https://i.imgur.com/IGbA0jO.gif)
-
-Your Turn! is a module that adds a visual display whenever the turn changes. 
+Lancer Combat Banner is a module that adds a visual display whenever the round changes and whenever a unit is activated. 
 
 # Features
-Color automatically changes with player and GM color! 
 
-Hidden monsters have a black silhoutte behind them 
+Color automatically changes with player and GM color. This can be overridden with a settings-defined color for all banners. 
+
+Also creates a chat message when a character is activated in the combat tracker, and when a new round begins. This can be disabled in the settings.
 
 # Maintenance
 
-If you encounter any bugs let me know in this repo. I made this module originally as an ADHD Hyperfixation , 
-so I can't gurantee maintence will be fast or ever, unfortunately. 
+Any bugs should be [reported here](https://github.com/hiddenkrypt/LancerCombatBanner/issues) on github.

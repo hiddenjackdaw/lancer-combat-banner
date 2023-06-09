@@ -1,41 +1,40 @@
 {
-  "name": "your-turn",
-  "title": "Your Turn!",
-  "description": "A simple module which adds a user specific to do list.",
-  "version": "1.00",
+  "name": "LancerCombatBanner",
+  "title": "Lancer Combat Banner",
+  "description": "Adds a graphic banner when character is activated in cmbat and when a new round starts. Based on 'Your Turn!' by Autmor.",
+  "version": "2.00",
   "authors": [
     {
+      "name": "Ada"
+		},
+		{
       "name": "Autmor"
     }
   ],
   "esmodules": [
-    "./yourTurn.js"
+    "./lancerCombatBanner.js"
   ],
   "styles": [
-    "./styles/module.css"
+    "./styles/Turns.css",
+    "./styles/Rounds.css"
   ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
-    },
-    {
-      "lang": "de",
-      "name": "German",
-      "path": "lang/de.json"
     }
   ],
-  "url": "https://github.com/Autmor/yourTurn",
+  "url": "https://github.com/hiddenkrypt/LancerCombatBanner",
   "manifest": "",
   "download": "",
-  "bugs": "https://github.com/Autmor/yourTurn/-/issues",
-  "readme": "https://github.com/Autmor/yourTurn/blob/main/README.md",
+  "bugs": "https://github.com/hiddenkrypt/LancerCombatBanner/issues",
+  "readme": "https://github.com/hiddenkrypt/LancerCombatBanner/blob/main/README.md",
   "flags": {
     "allowBugReporter": true
   },
   "compatibility": {
-    "minimum": "10",
+    "minimum": "9",
     "verified": "10"
   }
 }
