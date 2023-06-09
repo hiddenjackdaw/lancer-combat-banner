@@ -1,7 +1,12 @@
 {
-    "YOUR-TURN.Round": "Round",
-    "YOUR-TURN.Turn": "Turn",
-    "YOUR-TURN.NextUp": "Next Up",
-    "YOUR-TURN.SomethingHappens": "Something is happening...",
-    "YOUR-TURN.YourTurn": "It's your Turn"
+	"ADA_COMBATBANNER.Round": "Round",
+	"ADA_COMBATBANNER.Turn": "Turn",
+	"ADA_COMBATBANNER.StartOfRound": "Start of Round",
+	"ADA_COMBATBANNER.Activate": "Activating",
+	"ADA_COMBATBANNER.NextTurn": "-Next Turn-",
+	"ADA_COMBATBANNER.NextRound": "-Next Round-",
+	"ADA_COMBATBANNER.Settings.announceTurn.Name": "Announce Turns",
+	"ADA_COMBATBANNER.Settings.announceTurn.Hint": "Create a chat message for each combatant's turn.",
+	"ADA_COMBATBANNER.Settings.announceRound.Name": "Announce Rounds",
+	"ADA_COMBATBANNER.Settings.announceRound.Hint": "Create a chat message at the start of each round.",
 }

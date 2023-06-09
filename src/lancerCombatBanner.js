@@ -1,5 +1,5 @@
-
-import {getMechClass, getCallsign} from "./lancerDataTools.js";
+import {buildSettings} from "./lcbSettings.js";
+import {getMechClass, getCallsign} from "./lcbTools.js";
 
 export let adaCombatBanner = new AdaCombatBanner();
 adaCombatBanner.init();
@@ -29,6 +29,7 @@ function AdaCombatBanner() {
 				uiTOP.appendChild(bannerContainerDiv);
 				bannerContainer = document.getElementById("yourTurnContainer");
 			}
+			buildSettings();
 			
 		});
 	}
@@ -40,7 +41,7 @@ function AdaCombatBanner() {
 		}
 		if (!typeof update["turn"] === "number" || !combat?.combatant) {
 			if (typeof update["round"] === "number" && !combat?.combatant) {
-				//newRound(update["round"]);
+				newRound(update["round"]);
 			}
 			return;
 		}
@@ -50,7 +51,20 @@ function AdaCombatBanner() {
 		}
 	}
 	
-
+	function newRound(roundNumber) {
+		console.log("new round");
+		if (game.settings.get("AdaCombatBanner", "announceRound")) {
+			let chatData = {
+				speaker: {
+					alias: game.i18n.localize('ADA_COMBATBANNER.NextRound')
+				},
+				type: CONST.CHAT_MESSAGE_TYPES.OOC,
+				content: `${game.i18n.localize('ADA_COMBATBANNER.StartOfRound')}: ${roundNumber} `
+			};
+			ChatMessage.create(chatData)
+		}
+	}
+	
 	function newTurn(combat, combatant) {
 		
 		
@@ -58,6 +72,17 @@ function AdaCombatBanner() {
 		let mechClass = getMechClass(combatant.actor);
 		if (callsign == mechClass) {
 			mechClass = "";
+		}
+		
+		if (game.settings.get("AdaCombatBanner", "announceTurn")) {
+			let chatData = {
+				speaker: {
+					alias: game.i18n.localize('ADA_COMBATBANNER.NextTurn')
+				},
+				type: CONST.CHAT_MESSAGE_TYPES.OOC,
+				content: `${game.i18n.localize('ADA_COMBATBANNER.Activate')} ${callsign}`
+			};
+			ChatMessage.create(chatData);
 		}
 		
 		const firstGm = game.users.find((u) => u.isGM && u.active);
