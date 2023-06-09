@@ -1,3 +1,5 @@
+/*Currently a mess with dumb fail-through chekcing of the V9 and V10 datamodels. Would be a lot better with actual checking of the foundry versio and separated functions for each. Also, need more V9 testing.*/
+
 
 export function getMechClass(actor) {
 	// console.log("\n\n=======>\n\n");
