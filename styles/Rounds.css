@@ -7,7 +7,7 @@
   block-size: fit-content;
   border-bottom-style: solid;
   border-bottom-width: 0px;
-  border-bottom: var(--ADA_TURN_color);
+  border-bottom: var(--ADA_COMBATBANNER_color);
   color: lightgray;
   font-family: Orbitron, Consolas, sans-serif;
   font-size: 5em;

@@ -6,7 +6,7 @@ adaCombatBanner.init();
 
 function LancerCombatBanner() {
 
-	let debugPause = true;
+	let debugPause = false;
 	let gmColor;
 	let turnBannerTimer;
 	let theImage;
