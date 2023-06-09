@@ -8,15 +8,11 @@ adaCombatBanner.init();
 function LancerCombatBanner() {
 
 	let debugPause = false;
-	let gmColor;
 	let turnBannerTimer;
-	let theImage;
 	let bannerContainer; 
 	
 	this.init = function() {
 		Hooks.on("ready", () => {
-			const firstGm = game.users.find((u) => u.isGM && u.active);
-			gmColor = firstGm["color"];
 			
 			Hooks.on("updateCombat", (combat, update, options, userId) => {
 				onUpdateCombat(combat, update, options, userId);
@@ -52,7 +48,6 @@ function LancerCombatBanner() {
 	
 	function newRound(roundNumber) {
 		setColors();
-		console.log("new round");
 		if (game.settings.get("LancerCombatBanner", "announceRound")) {
 			let chatData = {
 				speaker: {
@@ -71,11 +66,10 @@ function LancerCombatBanner() {
 		let bannerDiv = document.createElement("div");
 		bannerDiv.id = "newRoundBanner";
 		bannerDiv.className = "newRoundBanner";
-		bannerDiv.style.height = 150;
 		bannerDiv.innerHTML = `
 		<div class="newRoundTitle">
 		  ${game.i18n.localize('ADA_COMBATBANNER.StartOfRound')} #${roundNumber}
-		</div></div>`;
+		</div>`;
 
 		bannerContainer.append(bannerDiv);
 		
@@ -113,18 +107,14 @@ function LancerCombatBanner() {
 		safeDelete("yourTurnImageId");
 		safeDelete("yourTurnBanner");		
 
-		theImage = combatant.actor.img;
-
 		let currentImgHTML = document.createElement("img");
 		currentImgHTML.id = "yourTurnImageId";
-		currentImgHTML.className = "yourTurnImg";
-		currentImgHTML.src = theImage;
-		currentImgHTML.classList.add("adding");
+		currentImgHTML.src = combatant.actor.img;
+		currentImgHTML.classList.add("yourTurnImg", "adding");
 
 		let bannerDiv = document.createElement("div");
 		bannerDiv.id = "yourTurnBanner";
 		bannerDiv.className = "yourTurnBanner";
-		bannerDiv.style.height = 150;
 		bannerDiv.innerHTML =`
 		<div class="roundCount">
 		  ${game.i18n.localize('ADA_COMBATBANNER.Round')} #${combat.round}
@@ -138,34 +128,26 @@ function LancerCombatBanner() {
 		bannerContainer.append(currentImgHTML)
 		bannerContainer.append(bannerDiv);
 
-		clearInterval(this?.turnBannerTimer);
-		turnBannerTimer = setInterval(() => {
+		setTimeout(() => {
 			if (!debugPause) {
-				unloadImage();
+				var element = document.getElementById("yourTurnBannerBackground");
+				if(element){
+					element.classList.add("removing");
+				}
+
+				element = document.getElementById("yourTurnBanner");
+				if(element){
+					element.classList.add("removing");
+				}
+
+				element = document.getElementById("yourTurnImageId");
+				if(element){
+					element.classList.add("removing");
+				}
 			}
 		}, 5000);
 	}
-
-
-
-	function unloadImage() {
-		clearInterval(turnBannerTimer);
-		var element = document.getElementById("yourTurnBannerBackground");
-		if(element){
-			element.classList.add("removing");
-		}
-
-		element = document.getElementById("yourTurnBanner");
-		if(element){
-			element.classList.add("removing");
-		}
-
-		element = document.getElementById("yourTurnImageId");
-		if(element){
-			element.classList.add("removing");
-		}
-	}
-
+	
 	function safeDelete(elementID) {
 		var targetElement = document.getElementById(elementID);
 		if (targetElement != null) {
