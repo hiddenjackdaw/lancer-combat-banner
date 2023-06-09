@@ -12,7 +12,8 @@
     }
   ],
   "esmodules": [
-    "./lancerCombatBanner.js"
+    "./lancerCombatBanner.js",
+    "./lancerDataTools.js"
   ],
   "styles": [
     "./styles/Turns.css",

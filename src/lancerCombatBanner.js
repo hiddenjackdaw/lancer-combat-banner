@@ -1,4 +1,6 @@
 
+import {getMechClass, getCallsign} from "./lancerDataTools.js";
+
 export let adaCombatBanner = new AdaCombatBanner();
 adaCombatBanner.init();
 
@@ -50,53 +52,43 @@ function AdaCombatBanner() {
 	
 
 	function newTurn(combat, combatant) {
+		
+		
+		let callsign = getCallsign(combatant.actor);
+		let mechClass = getMechClass(combatant.actor);
+		if (callsign == mechClass) {
+			mechClass = "";
+		}
+		
 		const firstGm = game.users.find((u) => u.isGM && u.active);
 		gmColor = firstGm["color"];
 		
-		console.log(update);
 
 		theImage = combatant.actor.img;
 
-		var ytName = combat ? .combatant.name;
-		var ytText = "";
-		var ytImgClass = new Array();
-		ytImgClass.push("adding");
-		
-		ytText = `${ytName}'s ${game.i18n.localize('YOUR-TURN.Turn')}!`;
-
-		let nextCombatant = getNextCombatant(combat);
-		let expectedNext = combat ? .nextCombatant;
-
-
-
 		safeDelete(currentImgID);
 		safeDelete("yourTurnBanner");
-
-		var nextImg = document.getElementById(nextImgID);
-
-		if (nextImg != null) {
-			if (combat ? .combatant != expectedNext) {
-				nextImg.remove();
-				currentImgID = null;
-			} else {
-				currentImgID = nextImgID;
-			}
-		}
 
 
 		let currentImgHTML = document.createElement("img");
 		currentImgHTML.id = currentImgID;
 		currentImgHTML.className = "yourTurnImg";
 		currentImgHTML.src = theImage;
-
-		bannerContainer.append(currentImgHTML)
-		console.log(imgHTML);
+		currentImgHTML.classList.add("adding");
 
 		let bannerDiv = document.createElement("div");
 		bannerDiv.id = "yourTurnBanner";
 		bannerDiv.className = "yourTurnBanner";
 		bannerDiv.style.height = 150;
-		bannerDiv.innerHTML = `<p id="yourTurnText" class="yourTurnText">${ytText}</p><div class="yourTurnSubheading">${game.i18n.localize('YOUR-TURN.Round')} #${combat.round} ${game.i18n.localize('YOUR-TURN.Turn')} #${combat.turn}</div>${getNextTurnHtml(nextCombatant)}<div id="yourTurnBannerBackground" class="yourTurnBannerBackground" height="150"></div>`;
+		bannerDiv.innerHTML =`
+		<div class="roundCount">
+		  ${game.i18n.localize('ADA_COMBATBANNER.Round')} #${combat.round}
+		</div>
+		<p id="yourTurnText" class="yourTurnText">${callsign}</p>
+		<div class="yourTurnSubheading">
+		  「${mechClass}」</span>
+		</div>
+		<div id="yourTurnBannerBackground" class="yourTurnBannerBackground" height="150"></div>`;
 
 		var cssDataRoot = document.querySelector(':root');
 		if (combat ? .combatant ? .hasPlayerOwner && combat ? .combatant ? .players[0].active) {
@@ -108,12 +100,7 @@ function AdaCombatBanner() {
 			cssDataRoot.style.setProperty('--yourTurnPlayerColorTransparent', gmColor + "80");
 		}
 
-		let currentImgHTML = document.getElementById(currentImgID);
-		while (ytImgClass.length > 0) {
-			currentImgHTML.classList.add(ytImgClass.pop());
-		}
-
-		container.append(currentImgHTML);
+		bannerContainer.append(currentImgHTML)
 		bannerContainer.append(bannerDiv);
 
 		clearInterval(this ? .myTimer);
@@ -139,7 +126,6 @@ function AdaCombatBanner() {
 	}
 
 	function safeDelete(elementID) {
-
 		var targetElement = document.getElementById(elementID);
 		if (targetElement != null) {
 			targetElement.remove();
