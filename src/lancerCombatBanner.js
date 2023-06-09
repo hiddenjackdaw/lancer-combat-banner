@@ -8,20 +8,16 @@ adaCombatBanner.init();
 
 function AdaCombatBanner() {
 
+	pause = true;
 	let gmColor;
 	let myTimer;
-	let lastCombatant;
-
-	let imgCount = 1;
-	let currentImgID = null;
-	let nextImgID;
-
-	let expectedNext;
-
-	this.init() {
+	let theImage;
+	let bannerContainer; 
+	
+	init() {
 		Hooks.on("ready", () => {
 			const firstGm = game.users.find((u) => u.isGM && u.active);
-			this.gmColor = firstGm["color"];
+			gmColor = firstGm["color"];
 			Hooks.on("updateCombat", (combat, update, options, userId) => {
 				TurnSubscriber._onUpdateCombat(combat, update, options, userId);
 			});
@@ -30,23 +26,17 @@ function AdaCombatBanner() {
 	}
 
 	function _onUpdateCombat(combat, update, options, userId) {
-		if (!(update["turn"] || update["round"])) {
+
+		if (!combat.started) {
+			return;
+		}
+		if (!typeof update["turn"] === "number" || !combat?.combatant) {
 			return;
 		}
 
 		console.log(update);
 
-		if (!combat.started) {
-			return;
-		}
-
-		if (combat.combatant == this.lastCombatant) {
-			return;
-		}
-
-		this.lastCombatant = combat.combatant;
-
-		this.image = combat ? .combatant.actor.img;
+		image = combat ? .combatant.actor.img;
 
 		var ytName = combat ? .combatant.name;
 		var ytText = "";
@@ -68,7 +58,7 @@ function AdaCombatBanner() {
 			ytText = `${ytName}'s ${game.i18n.localize('YOUR-TURN.Turn')}!`;
 		}
 
-		let nextCombatant = this.getNextCombatant(combat);
+		let nextCombatant = getNextCombatant(combat);
 		let expectedNext = combat ? .nextCombatant;
 
 		var container = document.getElementById("yourTurnContainer");
@@ -85,35 +75,35 @@ function AdaCombatBanner() {
 			container = document.getElementById("yourTurnContainer");
 		}
 
-		this.checkAndDelete(this.currentImgID);
-		this.checkAndDelete("yourTurnBanner");
+		checkAndDelete(currentImgID);
+		checkAndDelete("yourTurnBanner");
 
-		var nextImg = document.getElementById(this.nextImgID);
+		var nextImg = document.getElementById(nextImgID);
 
 		if (nextImg != null) {
-			if (combat ? .combatant != this.expectedNext) {
+			if (combat ? .combatant != expectedNext) {
 				nextImg.remove();
-				this.currentImgID = null;
+				currentImgID = null;
 			} else {
-				this.currentImgID = this.nextImgID;
+				currentImgID = nextImgID;
 			}
 		}
 
-		this.imgCount = this.imgCount + 1;
-		this.nextImgID = `yourTurnImg${this.imgCount}`;
+		imgCount = imgCount + 1;
+		nextImgID = `yourTurnImg${imgCount}`;
 
 		let imgHTML = document.createElement("img");
-		imgHTML.id = this.nextImgID;
+		imgHTML.id = nextImgID;
 		imgHTML.className = "yourTurnImg";
 		imgHTML.src = expectedNext ? .actor.img;
 
-		if (this.currentImgID == null) {
-			this.currentImgID = `yourTurnImg${this.imgCount - 1}`;
+		if (currentImgID == null) {
+			currentImgID = `yourTurnImg${imgCount - 1}`;
 
 			let currentImgHTML = document.createElement("img");
-			currentImgHTML.id = this.currentImgID;
+			currentImgHTML.id = currentImgID;
 			currentImgHTML.className = "yourTurnImg";
-			currentImgHTML.src = this.image;
+			currentImgHTML.src = image;
 
 			container.append(currentImgHTML)
 			console.log(imgHTML);
@@ -123,7 +113,7 @@ function AdaCombatBanner() {
 		bannerDiv.id = "yourTurnBanner";
 		bannerDiv.className = "yourTurnBanner";
 		bannerDiv.style.height = 150;
-		bannerDiv.innerHTML = `<p id="yourTurnText" class="yourTurnText">${ytText}</p><div class="yourTurnSubheading">${game.i18n.localize('YOUR-TURN.Round')} #${combat.round} ${game.i18n.localize('YOUR-TURN.Turn')} #${combat.turn}</div>${this.getNextTurnHtml(nextCombatant)}<div id="yourTurnBannerBackground" class="yourTurnBannerBackground" height="150"></div>`;
+		bannerDiv.innerHTML = `<p id="yourTurnText" class="yourTurnText">${ytText}</p><div class="yourTurnSubheading">${game.i18n.localize('YOUR-TURN.Round')} #${combat.round} ${game.i18n.localize('YOUR-TURN.Turn')} #${combat.turn}</div>${getNextTurnHtml(nextCombatant)}<div id="yourTurnBannerBackground" class="yourTurnBannerBackground" height="150"></div>`;
 
 		var r = document.querySelector(':root');
 		if (combat ? .combatant ? .hasPlayerOwner && combat ? .combatant ? .players[0].active) {
@@ -131,11 +121,11 @@ function AdaCombatBanner() {
 			r.style.setProperty('--yourTurnPlayerColor', ytPlayerColor);
 			r.style.setProperty('--yourTurnPlayerColorTransparent', ytPlayerColor + "80");
 		} else {
-			r.style.setProperty('--yourTurnPlayerColor', this.gmColor);
-			r.style.setProperty('--yourTurnPlayerColorTransparent', this.gmColor + "80");
+			r.style.setProperty('--yourTurnPlayerColor', gmColor);
+			r.style.setProperty('--yourTurnPlayerColorTransparent', gmColor + "80");
 		}
 
-		let currentImgHTML = document.getElementById(this.currentImgID);
+		let currentImgHTML = document.getElementById(currentImgID);
 		while (ytImgClass.length > 0) {
 			currentImgHTML.classList.add(ytImgClass.pop());
 		}
@@ -144,8 +134,10 @@ function AdaCombatBanner() {
 		container.append(bannerDiv);
 
 		clearInterval(this ? .myTimer);
-		this.myTimer = setInterval(() => {
-			this.unloadImage()
+		myTimer = setInterval(() => {
+			if (!pause) {
+				unloadImage();
+			}
 		}, 5000);
 	}
 
@@ -163,14 +155,14 @@ function AdaCombatBanner() {
 	}
 
 	function unloadImage() {
-		clearInterval(this.myTimer);
+		clearInterval(myTimer);
 		var element = document.getElementById("yourTurnBannerBackground");
 		element.classList.add("removing");
 
 		element = document.getElementById("yourTurnBanner");
 		element.classList.add("removing");
 
-		element = document.getElementById(this.currentImgID);
+		element = document.getElementById(currentImgID);
 		element.classList.add("removing");
 	}
 
