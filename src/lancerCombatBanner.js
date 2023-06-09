@@ -1,18 +1,22 @@
 
-export default class TurnSubscriber{
-    
-    static gmColor; 
-    static myTimer;
-    static lastCombatant;
+import {adaSettings} from "./settings.js";
+export let adaCombatBanner = new AdaCombatBanner();
+adaCombatBanner.init();
 
-    static imgCount = 1;
-    static currentImgID = null;
-    static nextImgID; 
+function AdaCombatBanner() {
 
-    static expectedNext;
+    let gmColor; 
+    let myTimer;
+    let lastCombatant;
+	
+    let imgCount = 1;
+    let currentImgID = null;
+    let nextImgID; 
+
+    let expectedNext;
 
 
-    static begin(){
+    this.init(){
         Hooks.on("ready",()=> 
         {
             const firstGm = game.users.find((u) => u.isGM && u.active);
@@ -24,7 +28,7 @@ export default class TurnSubscriber{
         });
     }
 
-    static _onUpdateCombat(combat, update, options, userId) {       
+    function _onUpdateCombat(combat, update, options, userId) {       
         if(!(update["turn"] || update["round"])){return;}
 
         console.log(update);
@@ -162,7 +166,7 @@ export default class TurnSubscriber{
         }, 5000);
     }
 
-    static loadNextImage(combat){
+    function loadNextImage(combat){
         //Put next turns image in a hidden side banner
         let nextTurn = combat.turn + 1;
 
@@ -175,7 +179,7 @@ export default class TurnSubscriber{
         $("body").append(hiddenImgHTML);
     }
 
-    static unloadImage()
+    function unloadImage()
     {
         clearInterval(this.myTimer);
         var element = document.getElementById("yourTurnBannerBackground");
@@ -188,7 +192,7 @@ export default class TurnSubscriber{
         element.classList.add("removing");
     }
 
-    static getNextCombatant(combat)
+    function getNextCombatant(combat)
     {
         let j = 1;
         let combatant = combat?.turns[(combat.turn + j) % combat.turns.length];
@@ -202,7 +206,7 @@ export default class TurnSubscriber{
         return combatant;
     }
 
-    static getNextTurnHtml(combatant)
+    function getNextTurnHtml(combatant)
     {
         let displayNext = true;
 
@@ -233,7 +237,7 @@ export default class TurnSubscriber{
 
     }
 
-    static checkAndDelete(elementID){
+    function checkAndDelete(elementID){
         
         var prevImg = document.getElementById(elementID);
         if(prevImg != null){
@@ -243,4 +247,3 @@ export default class TurnSubscriber{
 
     
 }
-TurnSubscriber.begin();
