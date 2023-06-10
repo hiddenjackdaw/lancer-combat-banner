@@ -14,3 +14,6 @@ Also creates a chat message when a character is activated in the combat tracker,
 # Maintenance
 
 Any bugs should be [reported here](https://github.com/hiddenkrypt/LancerCombatBanner/issues) on github.
+
+![image](https://github.com/hiddenkrypt/LancerCombatBanner/assets/5739024/87f7bcac-cfc9-4bf7-a1cc-f112d4b07dc2)
+![image](https://github.com/hiddenkrypt/LancerCombatBanner/assets/5739024/7d5d2ca2-d3bd-47cf-8017-a9bb58a1f2a8)
