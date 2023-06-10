@@ -1,3 +1,5 @@
+![example](https://github.com/hiddenkrypt/LancerCombatBanner/raw/main/combatbanner.webm)
+
 # What is this? 
 
 Lancer Combat Banner is a module that adds a visual display whenever the round changes and whenever a unit is activated. 
