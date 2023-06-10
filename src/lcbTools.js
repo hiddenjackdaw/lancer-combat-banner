@@ -1,22 +1,16 @@
 /*Currently a mess with dumb fail-through chekcing of the V9 and V10 datamodels. Would be a lot better with actual checking of the foundry versio and separated functions for each. Also, need more V9 testing.*/
 
-
 export function getMechClass(actor) {
-	// console.log("\n\n=======>\n\n");
-	// console.log(actor);
+	if( game.data.release.generation != 10){
+		console.error("This version of LancerCombatBanner is only for V10");
+		return "///";
+	}
 	if (actor.type == "npc") {
-		return actor.items.filter(e => {
-			return e.type == "npc_template"
-		})
-		.map(e => {
-			return e.name
-		})
-		.join(" ") + " " + actor.items.find(e => {
-			return e.type == "npc_class"
-		}).name;
-		return actor.items.find(e => {
-			return e.type == "npc_class"
-		}).name
+		let npcClass =  actor.items.find(e => {return e.type == "npc_class"})?.name || "npc";
+		let npcTemplates = actor.items.filter(e => {return e.type == "npc_template"})
+			.map(e => {return e.name})
+			.join(" ");
+		return npcTemplates + " " + npcClass;
 	} else if (actor.type == "mech") {
 		return actor.name;
 	} else if (actor.type == "pilot") {
