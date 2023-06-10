@@ -1,4 +1,5 @@
-![example](https://github.com/hiddenkrypt/LancerCombatBanner/raw/main/combatbanner.webm)
+[combatbanner.webm](https://github.com/hiddenkrypt/LancerCombatBanner/assets/5739024/6a12e145-d142-4f04-9f4c-d3ab91a636be)
+
 
 # What is this? 
 
