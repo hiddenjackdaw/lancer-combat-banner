@@ -2,15 +2,12 @@
   "name": "LancerCombatBanner",
   "title": "Lancer Combat Banner",
   "description": "Adds a graphic banner when character is activated in cmbat and when a new round starts. Based on 'Your Turn!' by Autmor.",
-  "version": "2.00",
+  "version": "1.00",
   "authors": [
     {
       "name": "Ada",
       "email": "hiddenkrypt@gmail.com",
       "discord": "0x0ada"
-    },
-    {
-      "name": "Autmor"
     }
   ],
   "esmodules": [
