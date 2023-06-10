@@ -17,7 +17,7 @@ export function setColors(combatant){
 function setUserColors(combatant){
 	if (combatant?.hasPlayerOwner && combatant?.players[0].active) {
 		const ownerColor = combatant?.players[0]["color"];
-		setColor( '--ADA_COMBATBANNER_color', ownerColor );
+		setColor( fetchColor( ownerColor ) );
 	} else {
 		const firstGm = game.users.find((u) => u.isGM && u.active);
 		setColor( firstGm["color"] );
