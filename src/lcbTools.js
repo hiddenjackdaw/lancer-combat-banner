@@ -1,5 +1,38 @@
 /*Currently a mess with dumb fail-through chekcing of the V9 and V10 datamodels. Would be a lot better with actual checking of the foundry versio and separated functions for each. Also, need more V9 testing.*/
 
+
+export function newTurnChatMessage( character ){
+		if (game.settings.get("LancerCombatBanner", "announceTurn")) {
+			let chatData = {
+				speaker: {
+					alias: game.i18n.localize('ADA_COMBATBANNER.NextTurn')
+				},
+				type: CONST.CHAT_MESSAGE_TYPES.OOC,
+				content: `${game.i18n.localize('ADA_COMBATBANNER.Activate')} ${character}`
+			};
+			if( game.users.find((u) => u.isGM && u.active).isSelf ) {
+				ChatMessage.create(chatData);
+			}
+		}
+}
+
+
+export function newRoundChatMessage( roundNumber ){
+	if (game.settings.get("LancerCombatBanner", "announceRound")) {
+		let chatData = {
+			speaker: {
+				alias: game.i18n.localize('ADA_COMBATBANNER.NextRound')
+			},
+			type: CONST.CHAT_MESSAGE_TYPES.OOC,
+			content: `${game.i18n.localize('ADA_COMBATBANNER.StartOfRound')}: ${roundNumber} `
+		};
+		if( game.users.find((u) => u.isGM && u.active).isSelf ) {
+			ChatMessage.create(chatData);
+		}
+	}
+
+}
+
 export function getMechClass(actor) {
 	if( game.data.release.generation != 10){
 		console.error("This version of LancerCombatBanner is only for V10");

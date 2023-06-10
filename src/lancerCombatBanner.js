@@ -1,5 +1,5 @@
 import {buildSettings} from "./lcbSettings.js";
-import {getMechClass, getCallsign} from "./lcbTools.js";
+import {getMechClass, getCallsign, newTurnChatMessage, newRoundChatMessage} from "./lcbTools.js";
 import {setColors} from "./lcbColorSet.js"
 
 export let adaCombatBanner = new LancerCombatBanner();
@@ -48,16 +48,7 @@ function LancerCombatBanner() {
 	
 	function newRound(roundNumber) {
 		setColors();
-		if (game.settings.get("LancerCombatBanner", "announceRound")) {
-			let chatData = {
-				speaker: {
-					alias: game.i18n.localize('ADA_COMBATBANNER.NextRound')
-				},
-				type: CONST.CHAT_MESSAGE_TYPES.OOC,
-				content: `${game.i18n.localize('ADA_COMBATBANNER.StartOfRound')}: ${roundNumber} `
-			};
-			ChatMessage.create(chatData)
-		}
+    newRoundChatMessage( roundNumber );
 		
 		safeDelete("newRoundBanner");
 		safeDelete("yourTurnImageId");
@@ -66,8 +57,7 @@ function LancerCombatBanner() {
 		let bannerDiv = document.createElement("div");
 		bannerDiv.id = "newRoundBanner";
 		bannerDiv.className = "newRoundBanner";
-		bannerDiv.innerHTML = `
-		<div class="newRoundTitle">
+		bannerDiv.innerHTML = `<div class="newRoundTitle">
 		  ${game.i18n.localize('ADA_COMBATBANNER.StartOfRound')} #${roundNumber}
 		</div>`;
 
@@ -95,16 +85,7 @@ function LancerCombatBanner() {
 			mechClass = "";
 		}
 		
-		if (game.settings.get("LancerCombatBanner", "announceTurn")) {
-			let chatData = {
-				speaker: {
-					alias: game.i18n.localize('ADA_COMBATBANNER.NextTurn')
-				},
-				type: CONST.CHAT_MESSAGE_TYPES.OOC,
-				content: `${game.i18n.localize('ADA_COMBATBANNER.Activate')} ${callsign}`
-			};
-			ChatMessage.create(chatData);
-		}
+		newTurnChatMessage( callsign );
 		
 		safeDelete("newRoundBanner");
 		safeDelete("yourTurnImageId");
@@ -118,8 +99,7 @@ function LancerCombatBanner() {
 		let bannerDiv = document.createElement("div");
 		bannerDiv.id = "yourTurnBanner";
 		bannerDiv.className = "yourTurnBanner";
-		bannerDiv.innerHTML =`
-		<div class="roundCount">
+		bannerDiv.innerHTML =`<div class="roundCount">
 		  ${game.i18n.localize('ADA_COMBATBANNER.Round')} #${combat.round}
 		</div>
 		<p id="yourTurnText" class="yourTurnText">${callsign}</p>
