@@ -34,7 +34,7 @@ export function buildSettings(){
     hint: "ADA_COMBATBANNER.Settings.colors.default.Hint",
     scope: 'world',
     config: true,
-		default: "#008141ff"
+		default: "#008141"
   },{
     format: 'hexa',
     alphaChannel: true
@@ -44,7 +44,7 @@ export function buildSettings(){
     hint: "ADA_COMBATBANNER.Settings.colors.friendly.Hint",
     scope: 'world',
     config: true,
-		default: "#008282ff"
+		default: "#008282"
   },{
     format: 'hexa',
     alphaChannel: true
@@ -54,7 +54,7 @@ export function buildSettings(){
     hint: "ADA_COMBATBANNER.Settings.colors.neutral.Hint",
     scope: 'world',
     config: true,
-		default: "#626262ff"
+		default: "#626262"
   },{
     format: 'hexa',
     alphaChannel: true
@@ -64,7 +64,7 @@ export function buildSettings(){
     hint: "ADA_COMBATBANNER.Settings.colors.hostile.Hint",
     scope: 'world',
     config: true,
-		default: "#a10000ff"
+		default: "#a10000"
   },{
     format: 'hexa',
     alphaChannel: true

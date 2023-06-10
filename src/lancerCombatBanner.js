@@ -8,7 +8,7 @@ adaCombatBanner.init();
 function LancerCombatBanner() {
 
 	let debugPause = false;
-	let turnBannerTimer;
+	let pendingTimer;
 	let bannerContainer; 
 	
 	this.init = function() {
@@ -73,8 +73,11 @@ function LancerCombatBanner() {
 
 		bannerContainer.append(bannerDiv);
 		
-		setTimeout(() => {
-			if (!adaCombatBanner.pause) {	
+		if(pendingTimer){
+			clearTimeout(pendingTimer);
+		}
+		pendingTimer = setTimeout(() => {
+			if (!debugPause) {
 				let element = document.getElementById("newRoundBanner");
 				if(element){
 					element.classList.add("removing");
@@ -128,7 +131,10 @@ function LancerCombatBanner() {
 		bannerContainer.append(currentImgHTML)
 		bannerContainer.append(bannerDiv);
 
-		setTimeout(() => {
+		if(pendingTimer){
+			clearTimeout(pendingTimer);
+		}
+		pendingTimer = setTimeout(() => {
 			if (!debugPause) {
 				var element = document.getElementById("yourTurnBannerBackground");
 				if(element){
