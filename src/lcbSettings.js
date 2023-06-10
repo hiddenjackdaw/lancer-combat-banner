@@ -16,22 +16,57 @@ export function buildSettings(){
 		type: Boolean,
 		default: true
 	});
-	game.settings.register("LancerCombatBanner", "forceDefaultColor", {
-		name: "ADA_COMBATBANNER.Settings.forceDefaultColor.Name",
-		hint: "ADA_COMBATBANNER.Settings.forceDefaultColor.Hint",
+	game.settings.register("LancerCombatBanner", "colorMode", {
+    name: "ADA_COMBATBANNER.Settings.colorRules.Name",
+		hint: "ADA_COMBATBANNER.Settings.colorRules.Hint",
 		scope: "world",
 		config: true,
-		type: Boolean,
-		default: false
+		type: String,
+		choices: {
+				"user": "ADA_COMBATBANNER.Settings.colorRules.user",
+				"default": "ADA_COMBATBANNER.Settings.colorRules.default",
+				"side": "ADA_COMBATBANNER.Settings.colorRules.side"
+		},
+		default: "user"
 	});
-	 
-	game.settings.register("LancerCombatBanner", "defaultColor", {
-		name: "ADA_COMBATBANNER.Settings.defaultColor.Name",
-		hint: "ADA_COMBATBANNER.Settings.defaultColor.Hint",
-		scope: "world",
-		config: true,
-		default: "#008141",
-		type: String
-	});
-
+	ColorPicker.register("LancerCombatBanner", "defaultColor", {
+    name: "ADA_COMBATBANNER.Settings.colors.default.Name",
+    hint: "ADA_COMBATBANNER.Settings.colors.default.Hint",
+    scope: 'world',
+    config: true,
+		default: "#008141ff"
+  },{
+    format: 'hexa',
+    alphaChannel: true
+  });    
+	ColorPicker.register("LancerCombatBanner", "friendlyColor", {
+    name: "ADA_COMBATBANNER.Settings.colors.friendly.Name",
+    hint: "ADA_COMBATBANNER.Settings.colors.friendly.Hint",
+    scope: 'world',
+    config: true,
+		default: "#008282ff"
+  },{
+    format: 'hexa',
+    alphaChannel: true
+  });    
+	ColorPicker.register("LancerCombatBanner", "neutralColor", {
+    name: "ADA_COMBATBANNER.Settings.colors.neutral.Name",
+    hint: "ADA_COMBATBANNER.Settings.colors.neutral.Hint",
+    scope: 'world',
+    config: true,
+		default: "#626262ff"
+  },{
+    format: 'hexa',
+    alphaChannel: true
+  });    
+	ColorPicker.register("LancerCombatBanner", "hostileColor", {
+    name: "ADA_COMBATBANNER.Settings.colors.hostile.Name",
+    hint: "ADA_COMBATBANNER.Settings.colors.hostile.Hint",
+    scope: 'world',
+    config: true,
+		default: "#a10000ff"
+  },{
+    format: 'hexa',
+    alphaChannel: true
+  });    
 }
