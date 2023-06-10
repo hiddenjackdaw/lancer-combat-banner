@@ -83,7 +83,7 @@ function LancerCombatBanner() {
 					element.classList.add("removing");
 				}
 			}
-		}, 5000);
+		}, 3000);
 	}
 	
 	function newTurn(combat, combatant) {
