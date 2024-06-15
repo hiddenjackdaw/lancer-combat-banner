@@ -34,8 +34,8 @@ export function newRoundChatMessage( roundNumber ){
 }
 
 export function getMechClass(actor) {
-	if( game.data.release.generation != 10){
-		console.error("This version of LancerCombatBanner is only for V10");
+	if( game.data.release.generation != 11){
+		console.error("This version of LancerCombatBanner is only for V11");
 		return "///";
 	}
 	if (actor.type == "npc") {
@@ -57,28 +57,28 @@ export function getCallsign(actor) {
 		if (actor.system?.callsign) {
 			return actor.system.callsign;
 		}
-		if (actor.data.data.callsign) {
-			return actor.data.data.callsign;
+		if (actor.system.pilot.value.system.callsign) {
+			return actor.system.pilot.value.system.callsign;
 		}
 		if (actor.name) {
 			return actor.name;
 		}
-		if (actor.data.data.name) {
-			return actor.data.data.name;
+		if (actor.system.name) {
+			return actor.system.name;
 		}
 	}
 	if (actor.type == "mech") {
-		let pilot = game.actors.get(actor.system?.pilot?.id);
+		let pilot = actor.system?.pilot?.value;
 		if (pilot && pilot.system.callsign) {
 			return pilot.system.callsign;
 		} else if (pilot) {
-			return pilot.name;
+			return pilot.system.name;
 		} else {
-			pilot = game.actors.get(actor.data.data.pilot?.id);
-			if (pilot && pilot.data.data.callsign) {
-				return pilot.data.data.callsign;
-			} else if (pilot && pilot.data.data.name) {
-				return pilot.data.data.name;
+			pilot = actor.system?.pilot?.value;
+			if (pilot && pilot.system.callsign) {
+				return pilot.system.callsign;
+			} else if (pilot && pilot.name) {
+				return pilot.name;
 			}
 		}
 	}
@@ -86,7 +86,7 @@ export function getCallsign(actor) {
 		return actor.name;
 	}
 	if (actor.data.name) {
-		return actor.data.name;
+		return actor.system.name;
 	}
 	return "///";
 }
