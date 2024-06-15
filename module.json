@@ -3,7 +3,7 @@
   "id": "LancerCombatBanner",
   "title": "Lancer Combat Banner",
   "description": "Adds a graphic banner when character is activated in combat and when a new round starts. Based on 'Your Turn!' by Autmor.",
-  "version": "1.00",
+  "version": "2.00",
   "authors": [
     {
       "name": "Ada",
@@ -47,7 +47,7 @@
     "allowBugReporter": true
   },
   "compatibility": {
-    "minimum": "10",
-    "verified": "10"
+    "minimum": "11",
+    "verified": "11"
   }
 }
