@@ -1,10 +1,10 @@
 
-.newRoundBanner{	
+.newRoundBanner{  
   animation-duration: 1s;
   animation-fill-mode: forwards;
   animation-name: newRoundIn;
   background-blend-mode: hard-light;
-	background-color: var(--ADA_COMBATBANNER_colorTransparent);
+  background-color: var(--ADA_COMBATBANNER_colorTransparent);
   block-size: fit-content;
   border-bottom-style: solid;
   border-bottom-width: 0px;
@@ -16,7 +16,7 @@
   /* margin-bottom: auto;  */
   /* margin-left: auto; */
   /* margin-right: auto; */
-	left:0;
+  left:0;
   overflow: hidden;
   position: absolute;
   text-align: center; 
@@ -34,41 +34,41 @@
   animation-name: newRoundOut;
   animation-duration: 1s;
   animation-fill-mode: forwards;
-	/* animation-timing-function:ease-out; */
-	
+  /* animation-timing-function:ease-out; */
+  
 }
 
 
 @keyframes newRoundOut{
   from {
     opacity: 1;
-		left:0;
+    left:0;
   }
-	30% {
-		left:0;
-	}
-	80% {
+  30% {
+    left:0;
+  }
+  80% {
     opacity: 0;
-	}
+  }
   to {
     opacity: 0;
-		left:100%;
+    left:100%;
   }
 }
 
 @keyframes newRoundIn{
   from {
     opacity: 0;
-		width:0%;
+    width:0%;
   }
-	30% {
+  30% {
     opacity: 0;
-	}
-	80% {
-		width:100%;
-	}
+  }
+  80% {
+    width:100%;
+  }
   to {
     opacity: 1;
-		width:100%;
+    width:100%;
   }
 }
