@@ -1,6 +1,6 @@
 
 export function buildSettings(){
-	game.settings.register("LancerCombatBanner", "announceTurn", {
+	game.settings.register("lancer-combat-banner", "announceTurn", {
 		name: "ADA_COMBATBANNER.Settings.announceTurn.Name",
 		hint: "ADA_COMBATBANNER.Settings.announceTurn.Hint",
 		scope: "world",
@@ -8,7 +8,7 @@ export function buildSettings(){
 		type: Boolean,
 		default: true
 	});
-	game.settings.register("LancerCombatBanner", "announceRound", {
+	game.settings.register("lancer-combat-banner", "announceRound", {
 		name: "ADA_COMBATBANNER.Settings.announceRound.Name",
 		hint: "ADA_COMBATBANNER.Settings.announceRound.Hint",
 		scope: "world",
@@ -16,7 +16,7 @@ export function buildSettings(){
 		type: Boolean,
 		default: true
 	});
-	game.settings.register("LancerCombatBanner", "colorMode", {
+	game.settings.register("lancer-combat-banner", "colorMode", {
     name: "ADA_COMBATBANNER.Settings.colorRules.Name",
 		hint: "ADA_COMBATBANNER.Settings.colorRules.Hint",
 		scope: "world",
@@ -29,7 +29,7 @@ export function buildSettings(){
 		},
 		default: "user"
 	});
-	ColorPicker.register("LancerCombatBanner", "defaultColor", {
+	ColorPicker.register("lancer-combat-banner", "defaultColor", {
     name: "ADA_COMBATBANNER.Settings.colors.default.Name",
     hint: "ADA_COMBATBANNER.Settings.colors.default.Hint",
     scope: 'world',
@@ -39,7 +39,7 @@ export function buildSettings(){
     format: 'hexa',
     alphaChannel: true
   });    
-	ColorPicker.register("LancerCombatBanner", "friendlyColor", {
+	ColorPicker.register("lancer-combat-banner", "friendlyColor", {
     name: "ADA_COMBATBANNER.Settings.colors.friendly.Name",
     hint: "ADA_COMBATBANNER.Settings.colors.friendly.Hint",
     scope: 'world',
@@ -49,7 +49,7 @@ export function buildSettings(){
     format: 'hexa',
     alphaChannel: true
   });    
-	ColorPicker.register("LancerCombatBanner", "neutralColor", {
+	ColorPicker.register("lancer-combat-banner", "neutralColor", {
     name: "ADA_COMBATBANNER.Settings.colors.neutral.Name",
     hint: "ADA_COMBATBANNER.Settings.colors.neutral.Hint",
     scope: 'world',
@@ -59,7 +59,7 @@ export function buildSettings(){
     format: 'hexa',
     alphaChannel: true
   });    
-	ColorPicker.register("LancerCombatBanner", "hostileColor", {
+	ColorPicker.register("lancer-combat-banner", "hostileColor", {
     name: "ADA_COMBATBANNER.Settings.colors.hostile.Name",
     hint: "ADA_COMBATBANNER.Settings.colors.hostile.Hint",
     scope: 'world',
