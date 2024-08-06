@@ -2,7 +2,7 @@ var cssDataRoot;
 
 export function setColors(combatant){
 	cssDataRoot = document.querySelector(':root');
-	let mode = game.settings.get( "LancerCombatBanner", "colorMode" );
+	let mode = game.settings.get( "lancer-combat-banner", "colorMode" );
 
 	if(mode  === "user"){
 		setUserColors(combatant);
@@ -40,7 +40,7 @@ function setColor( color ){
 	cssDataRoot.style.setProperty('--ADA_COMBATBANNER_colorTransparent', color );
 }
 function fetchColor( from ){
-	let color = game.settings.get( "LancerCombatBanner", from );
+	let color = game.settings.get( "lancer-combat-banner", from );
 	if( color.length === 9){
 		color = color.substring(0, 7);
 	}		

@@ -2,7 +2,7 @@
 
 
 export function newTurnChatMessage( character ){
-		if (game.settings.get("LancerCombatBanner", "announceTurn")) {
+		if (game.settings.get("lancer-combat-banner", "announceTurn")) {
 			let chatData = {
 				speaker: {
 					alias: game.i18n.localize('ADA_COMBATBANNER.NextTurn')
@@ -18,7 +18,7 @@ export function newTurnChatMessage( character ){
 
 
 export function newRoundChatMessage( roundNumber ){
-	if (game.settings.get("LancerCombatBanner", "announceRound")) {
+	if (game.settings.get("lancer-combat-banner", "announceRound")) {
 		let chatData = {
 			speaker: {
 				alias: game.i18n.localize('ADA_COMBATBANNER.NextRound')
@@ -35,7 +35,7 @@ export function newRoundChatMessage( roundNumber ){
 
 export function getMechClass(actor) {
 	if( game.data.release.generation != 11){
-		console.error("This version of LancerCombatBanner is only for V11");
+		console.error("This version of Lancer Combat Banner is only for V11");
 		return "///";
 	}
 	if (actor.type == "npc") {
