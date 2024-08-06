@@ -1,6 +1,9 @@
 
 # Installation
-Just use this manifest link in foundry: https://github.com/hiddenkrypt/LancerCombatBanner/releases/download/v1.0/module.json
+This module is pending listing in foundry. Until then, use one of these manifest links directy:
+For Foundry v11: https://github.com/hiddenkrypt/LancerCombatBanner/releases/download/v2.0/module.json
+
+For Foundry v10: https://github.com/hiddenkrypt/LancerCombatBanner/releases/download/v1.0/module.json
 
 # What is this? 
 
