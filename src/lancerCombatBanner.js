@@ -1,10 +1,10 @@
 import {buildSettings} from "./lcbSettings.js";
-import {getMechClass, getCallsign, newTurnChatMessage, newRoundChatMessage} from "./lcbTools.js";
+import {getMechClass, getCallsign, newTurnChatMessage, newRoundChatMessage, isAddCombatantUpdate} from "./lcbTools.js";
 import {setColors} from "./lcbColorSet.js"
 
 export let adaCombatBanner = new LancerCombatBanner();
 adaCombatBanner.init();
-
+let previousCombat = null;
 function LancerCombatBanner() {
 
   let debugPause = false;
@@ -35,17 +35,16 @@ function LancerCombatBanner() {
     if (!combat.started) {
       return;
     }
-    if (!typeof update["turn"] === "number" || !combat?.combatant) {
-      if (typeof update["round"] === "number" && !combat?.combatant) {
-        newRound(update["round"]);
-      }
-      return;
+    if (typeof update["round"] === "number" && !combat.combatant ) {
+      newRound(update["round"]);
     }
-    if (typeof update["turn"] === "number" && combat?.combatant) {
+    else if (typeof update["turn"] === "number" && combat?.combatant && !isAddCombatantUpdate(previousCombat,combat)) {
       newTurn(combat, combat.combatant);
     }
+    previousCombat = {actorID: combat.combatant?.actorID, combatantCount: combat.combatants.size};
   }
   
+
   function newRound(roundNumber) {
     setColors();
     newRoundChatMessage( roundNumber );

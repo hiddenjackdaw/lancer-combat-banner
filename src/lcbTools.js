@@ -90,3 +90,7 @@ export function getCallsign(actor) {
   }
   return "///";
 }
+
+export function isAddCombatantUpdate( previousCombat, combat ){
+  return previousCombat && previousCombat.actorID == combat.combatant?.actorID && previousCombat.combatantCount != combat.combatants.size;
+}
