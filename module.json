@@ -3,7 +3,7 @@
   "id": "lancer-combat-banner",
   "title": "Lancer Combat Banner",
   "description": "Adds a graphic banner when character is activated in combat and when a new round starts. Based on 'Your Turn!' by Autmor.",
-  "version": "2.00",
+  "version": "2.01",
   "authors": [
     {
       "name": "Ada",
@@ -39,8 +39,8 @@
     ]
   },
   "url": "https://github.com/hiddenkrypt/LancerCombatBanner",
-  "manifest": "https://github.com/hiddenkrypt/LancerCombatBanner/releases/download/v2.0/module.json",
-  "download": "https://github.com/hiddenkrypt/LancerCombatBanner/releases/download/v2.0/module.zip",
+  "manifest": "https://github.com/hiddenkrypt/LancerCombatBanner/releases/download/v2.01/module.json",
+  "download": "https://github.com/hiddenkrypt/LancerCombatBanner/releases/download/v2.01/module.zip",
   "bugs": "https://github.com/hiddenkrypt/LancerCombatBanner/issues",
   "readme": "https://github.com/hiddenkrypt/LancerCombatBanner/blob/main/README.md",
   "flags": {
